@@ -1,0 +1,81 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled2.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "authorship_tag": "ABX9TyO2wcElTD2/x0gup9ba+oDe",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/PALANIVELAADHI/mechine-and-deep-learning/blob/master/Support%20Vector%20Machine\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "io3hbO8aP7-f"
+      },
+      "source": [
+        "\r\n",
+        "import matplotlib.pyplot as plt\r\n",
+        "import numpy as np\r\n",
+        "from sklearn import svm\r\n",
+        "\r\n",
+        "# linear data\r\n",
+        "X = np.array([1, 5, 1.5, 8, 1, 9, 7, 8.7, 2.3, 5.5, 7.7, 6.1])\r\n",
+        "y = np.array([2, 8, 1.8, 8, 0.6, 11, 10, 9.4, 4, 3, 8.8, 7.5])\r\n",
+        "\r\n",
+        "# show unclassified data\r\n",
+        "plt.scatter(X, y)\r\n",
+        "plt.show()\r\n",
+        "\r\n",
+        "# shaping data for training the model\r\n",
+        "training_X = np.vstack((X, y)).T\r\n",
+        "training_y = [0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1]\r\n",
+        "\r\n",
+        "# define the model\r\n",
+        "clf = svm.SVC(kernel='linear', C=1.0)\r\n",
+        "\r\n",
+        "# train the model\r\n",
+        "clf.fit(training_X, training_y)\r\n",
+        "\r\n",
+        "# get the weight values for the linear equation from the trained SVM model\r\n",
+        "w = clf.coef_[0]\r\n",
+        "\r\n",
+        "# get the y-offset for the linear equation\r\n",
+        "a = -w[0] / w[1]\r\n",
+        "\r\n",
+        "# make the x-axis space for the data points\r\n",
+        "XX = np.linspace(0, 13)\r\n",
+        "\r\n",
+        "# get the y-values to plot the decision boundary\r\n",
+        "yy = a * XX - clf.intercept_[0] / w[1]\r\n",
+        "\r\n",
+        "# plot the decision boundary\r\n",
+        "plt.plot(XX, yy, 'k-')\r\n",
+        "\r\n",
+        "# show the plot visually\r\n",
+        "plt.scatter(training_X[:, 0], training_X[:, 1], c=training_y)\r\n",
+        "plt.legend()\r\n",
+        "plt.show()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
